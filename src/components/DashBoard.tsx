@@ -9,6 +9,7 @@ import { useContent } from "./hooks/useContent";
 
 
 
+
 export function DashBoard() {
   const [modelopen, setModelOpen] = useState(false);
   const [filter, setFilter] = useState<"all" | "youtube" | "twitter">("all");
@@ -33,12 +34,14 @@ export function DashBoard() {
           }}
         />
         <div className=" flex justify-end  gap-5 pt-10 mr-9 5 bg-gray-50">
-          <Button
+          
+          <div>< Button
             onClick={() => setModelOpen(true)}
             variant="primary"
             text="Add Content"
             startIcon={<PlusIcon />}
           ></Button>
+          </div>
           <Button
             variant="secondary"
             text="Share Brain"

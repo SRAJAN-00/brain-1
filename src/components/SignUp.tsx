@@ -20,18 +20,18 @@ export function SignUp() {
   }
   return (
     <div className="bg-gray-200 flex justify-center h-screen items-center">
-      <div className="bg-white shadow-sm rounded-lg   h-[600px] w-[600px] p-1 border gap-2 p-6 mt-4">
-        <h2 className="flex justify-center text-4xl font-bold   mt-8">
-          Signup
+      <div className="bg-white shadow-sm rounded-lg   h-[500px] w-[500px] p-1 border gap-2 p-6 mt-4">
+        <h2 className="flex justify-center text-4xl font-bold text-purple-700  mt-8">
+          Create a account
         </h2>
         <div className="mt-14">
           <div className="pb-2 pl-1">
-            <label>Username</label>
+            <label>Enter your Username :</label>
           </div>
           <Input reference={usernameRef} placeholder="username" />
         </div>
         <div className="pb-2 pl-1">
-          <label>password</label>
+          <label>Enter your password :</label>
         </div>
         <Input reference={passwordRef} placeholder="password" />
         <div className="mt-8">
@@ -41,6 +41,9 @@ export function SignUp() {
             text="Signup"
             fullWidth={true}
           />
+        </div>
+        <div className=" flex  justify-center text-purple-500 item-center pt-2 hover:text-purple-600 ">
+        <a href="/signin">Already have an account</a>
         </div>
       </div>
     </div>
