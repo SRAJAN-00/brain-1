@@ -4,6 +4,7 @@ interface InputProps {
   placeholder: string;
   reference: React.Ref<HTMLInputElement>;
 }
+
 export function Input({ reference, placeholder }: InputProps) {
   return (
     <div>
@@ -11,7 +12,7 @@ export function Input({ reference, placeholder }: InputProps) {
         ref={reference}
         type="text"
         placeholder={placeholder}
-        className=" py-4 pl-3 border rounded-md w-[450px] mr-3 shadow-sm  mb-5 mt5 rounded-xl transition-all duration-300 ease-in-out focus:outline-none hover:border-blue-500 hover:shadow-md"
+        className="py-4 pl-3 border rounded-xl w-full max-w-[450px] sm:max-w-[200px] mr-3 shadow-sm mb-5 mt-2 transition-all duration-300 ease-in-out focus:outline-none focus:border-blue-500 hover:border-blue-500 hover:shadow-md"
       />
     </div>
   );
