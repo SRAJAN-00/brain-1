@@ -3,13 +3,13 @@ import { Button } from "./Button";
 import { Input } from "./Input";
 import { BACKEND_URL } from "./config";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Add Link import
 
 export function SignUp() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  
+
   async function signup() {
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
@@ -26,7 +26,7 @@ export function SignUp() {
         <h2 className="text-center text-3xl md:text-4xl text-purple-700 font-bold mt-4 mb-8">
           Create Account
         </h2>
-        
+
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -34,14 +34,14 @@ export function SignUp() {
             </label>
             <Input reference={usernameRef} placeholder="username" />
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Enter your Password:
             </label>
             <Input reference={passwordRef} placeholder="password" />
           </div>
-          
+
           <div className="pt-4">
             <Button
               onClick={signup}
@@ -50,14 +50,14 @@ export function SignUp() {
               fullWidth={true}
             />
           </div>
-          
+
           <div className="text-center pt-2">
-            <a 
-              href="/signin" 
+            <Link
+              to="/signin"
               className="text-purple-500 hover:text-purple-600 transition-colors underline"
             >
               Already have an account?
-            </a>
+            </Link>
           </div>
         </div>
       </div>

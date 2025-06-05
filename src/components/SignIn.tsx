@@ -3,7 +3,7 @@ import { Button } from "./Button";
 import { Input } from "./Input";
 import { BACKEND_URL } from "./config";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Add Link import
 
 export function SignIn() {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -54,12 +54,12 @@ export function SignIn() {
           </div>
           
           <div className="text-center pt-2">
-            <a 
-              href="/signup" 
+            <Link 
+              to="/signup" 
               className="text-purple-500 hover:text-purple-600 transition-colors underline"
             >
               Create a new account
-            </a>
+            </Link>
           </div>
         </div>
       </div>
