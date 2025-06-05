@@ -62,8 +62,8 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
           transition={{ duration: 0.2, ease: easeInOut }}
           className="h-screen w-full flex justify-center items-center fixed top-0 left-0 z-50 backdrop-blur-sm bg-black bg-opacity-50 p-4"
         >
-          <div className="w-full max-w-sm mx-auto">
-            <div className="bg-white shadow-lg rounded-xl w-full max-h-[90vh] overflow-y-auto border p-6">
+          <div className="w-full max-w-[600px] mx-auto">
+            <div className="bg-white shadow-lg rounded-xl w-full h-auto max-h-[90vh] overflow-y-auto border p-6">
               {/* Header with close button */}
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl text-purple-700 font-semibold text-gray-800">
@@ -109,7 +109,6 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
                       }
                       text="Youtube"
                       onClick={() => setType(ContentType.Youtube)}
-                     
                     />
                     <Button
                       onClick={() => setType(ContentType.Twitter)}
@@ -117,20 +116,18 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
                         type === ContentType.Twitter ? "primary" : "secondary"
                       }
                       text="Twitter"
-                     
                     />
                   </div>
                 </div>
-<div className="flex justify-center mt-6">
-                {/* Submit button */}
-                <div className="pt-4">
-                  <Button
-                    onClick={addContent}
-                    variant="primary"
-                    text="Add to Brain"
-                   
-                  />
-                </div>
+                <div className="flex justify-center mt-6">
+                  {/* Submit button */}
+                  <div className="pt-4">
+                    <Button
+                      onClick={addContent}
+                      variant="primary"
+                      text="Add to Brain"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

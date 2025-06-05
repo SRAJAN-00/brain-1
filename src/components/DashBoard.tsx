@@ -7,7 +7,6 @@ import { ShareIcon } from "../icons/ShareIcon";
 import { SideBar } from "../components/SideBar";
 import { useContent } from "./hooks/useContent";
 
-
 export function DashBoard() {
   const [modelopen, setModelOpen] = useState(false);
   const [filter, setFilter] = useState<"all" | "youtube" | "twitter">("all");
@@ -28,8 +27,15 @@ export function DashBoard() {
 
       {/* Main content - responsive margins */}
       <div className="flex-1 min-h-screen bg-gray-50 justify-center ml-0 md:ml-72 px-4 md:px-0">
-        {/* Header buttons - responsive */}
-        <div className="flex flex-col sm:flex-col justify-end gap-3 sm:gap-5 pt-10 mr-5 ml-5 mt-10 flex sm:mr-4">
+        {/* Mobile Header - Brain App title */}
+        <div className="md:hidden flex justify-center pt-4 pb-2">
+          <h1 className="text-3xl mt-10 font-bold text-purple-600">
+            Second brain
+          </h1>
+        </div>
+
+        {/* Header buttons - centered on mobile, right-aligned on desktop */}
+        <div className="flex flex-col sm:flex-row justify-center sm:justify-end gap-3 sm:gap-5 sm:p-10 pt-10 px-4 sm:pr-14 sm:pl-8 mr-0 sm:mr-9">
           <Button
             onClick={() => setModelOpen(true)}
             variant="primary"
@@ -43,17 +49,19 @@ export function DashBoard() {
           />
         </div>
 
-        {/* Cards grid - responsive */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 ml-5 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6 ml-0 sm:ml-5">
-          {filteredContents.map((item, index) => (
-            <Card
-              key={item._id || index}
-              title={item.title}
-              link={item.link}
-              type={item.type as "youtube" | "twitter"}
-              onDelete={() => deleteContent(String(item._id))}
-            />
-          ))}
+        {/* Cards grid - centered on mobile, left-aligned on desktop */}
+        <div className="flex justify-center sm:justify-start px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:ml-5">
+            {filteredContents.map((item, index) => (
+              <Card
+                key={item._id || index}
+                title={item.title}
+                link={item.link}
+                type={item.type as "youtube" | "twitter"}
+                onDelete={() => deleteContent(String(item._id))}
+              />
+            ))}
+          </div>
         </div>
       </div>
 

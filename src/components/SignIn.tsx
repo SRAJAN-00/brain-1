@@ -3,7 +3,7 @@ import { Button } from "./Button";
 import { Input } from "./Input";
 import { BACKEND_URL } from "./config";
 import { useRef } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Add Link import
+import { useNavigate, Link } from "react-router-dom";
 
 export function SignIn() {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -24,7 +24,7 @@ export function SignIn() {
 
   return (
     <div className="bg-gray-200 flex justify-center min-h-screen items-center p-4">
-      <div className="bg-white shadow-lg rounded-lg w-full max-w-md mx-auto p-6 border">
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-md sm:max-w-lg md:max-w-xl lg:w-[500px] mx-auto p-6 border">
         <h2 className="text-center text-3xl md:text-4xl text-purple-700 font-bold mt-4 mb-8">
           Login
         </h2>

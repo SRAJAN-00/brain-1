@@ -16,8 +16,8 @@ export function SideBar({ filter, setFilter }: filterProps) {
     <>
       {/* Mobile menu button */}
       <button
-        className={`md:hidden fixed p-3 top-4 left-4 z-50 p-2 bg-white rounded-md shadow-md
-        ${isOpen ? "left-[242px] mt-14 shadow-none" : "left-4"}`}
+        className={`md:hidden fixed p-3 top-8 left-2 z-50 p-2  
+        ${isOpen ? "left-[242px] mt-14 shadow-none" : ""}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         ☰
