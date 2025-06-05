@@ -9,6 +9,7 @@ export function SignUp() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  
   async function signup() {
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
@@ -18,32 +19,46 @@ export function SignUp() {
     });
     navigate("/signin");
   }
+
   return (
-    <div className="bg-gray-200 flex justify-center h-screen items-center">
-      <div className="bg-white shadow-sm rounded-lg   h-[500px] w-[500px] p-1 border gap-2 p-6 mt-4">
-        <h2 className="flex justify-center text-4xl font-bold text-purple-700  mt-8">
-          Create a account
+    <div className="bg-gray-200 flex justify-center min-h-screen items-center p-4">
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-md mx-auto p-6 border">
+        <h2 className="text-center text-3xl md:text-4xl text-purple-700 font-bold mt-4 mb-8">
+          Create Account
         </h2>
-        <div className="mt-14">
-          <div className="pb-2 pl-1">
-            <label>Enter your Username :</label>
+        
+        <div className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Enter your Username:
+            </label>
+            <Input reference={usernameRef} placeholder="username" />
           </div>
-          <Input reference={usernameRef} placeholder="username" />
-        </div>
-        <div className="pb-2 pl-1">
-          <label>Enter your password :</label>
-        </div>
-        <Input reference={passwordRef} placeholder="password" />
-        <div className="mt-8">
-          <Button
-            onClick={signup}
-            variant="primary"
-            text="Signup"
-            fullWidth={true}
-          />
-        </div>
-        <div className=" flex  justify-center text-purple-500 item-center pt-2 hover:text-purple-600 ">
-        <a href="/signin">Already have an account</a>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Enter your Password:
+            </label>
+            <Input reference={passwordRef} placeholder="password" />
+          </div>
+          
+          <div className="pt-4">
+            <Button
+              onClick={signup}
+              variant="primary"
+              text="Sign Up"
+              fullWidth={true}
+            />
+          </div>
+          
+          <div className="text-center pt-2">
+            <a 
+              href="/signin" 
+              className="text-purple-500 hover:text-purple-600 transition-colors underline"
+            >
+              Already have an account?
+            </a>
+          </div>
         </div>
       </div>
     </div>
