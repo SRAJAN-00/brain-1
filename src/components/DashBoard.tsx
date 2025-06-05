@@ -49,9 +49,9 @@ export function DashBoard() {
           />
         </div>
 
-        {/* Cards grid - centered on mobile, left-aligned on desktop */}
-        <div className="flex justify-center sm:justify-start px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:ml-5">
+        {/* Cards grid - centered on mobile with proper spacing */}
+        <div className="flex justify-center  lg:px-6 sm:px-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:ml-5 w-full max-w-xs sm:max-w-none mx-auto sm:mx-0">
             {filteredContents.map((item, index) => (
               <Card
                 key={item._id || index}
@@ -72,3 +72,6 @@ export function DashBoard() {
     </div>
   );
 }
+
+// In your Card.tsx file, update the container classes:
+<div className="bg-white rounded-lg shadow-md p-3 sm:p-4 hover:shadow-lg transition-shadow w-full max-w-xs sm:max-w-sm"></div>;
