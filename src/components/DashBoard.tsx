@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { ContentModel } from "../components/ContentModel";
@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import Nav from "./Nav";
 
 export function DashBoard() {
+  const [search, setSearch] = useState("");
   const [modelopen, setModelOpen] = useState(false);
   const [filter, setFilter] = useState<"all" | "youtube" | "twitter">("all");
   const { contents, refresh, deleteContent } = useContent();
@@ -19,15 +20,20 @@ export function DashBoard() {
     refresh();
   }, [modelopen]);
 
-  const filteredContents =
-    filter === "all"
-      ? contents
-      : contents.filter((item) => item.type === filter);
+  const filteredContents = useMemo(() => {
+    return contents
+      .filter((item) => filter === "all" || item.type === filter)
+      .filter((item) => item.title.toLowerCase().includes(search.toLowerCase()));
+  }, [contents, filter, search]);
 
   return (
     <div className="flex">
       {/* Pass the toggle function to Nav */}
-      <Nav onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)} />
+      <Nav
+        search={search}
+        setSearch={setSearch}
+        onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+      />
       {/* Pass the state and toggle function to SideBar */}
       <SideBar
         filter={filter}
@@ -82,3 +88,6 @@ export function DashBoard() {
 
 // In your Card.tsx file, update the container classes:
 <div className="bg-white rounded-lg shadow-md p-3 sm:p-4 hover:shadow-lg transition-shadow w-full max-w-xs sm:max-w-sm"></div>;
+
+
+

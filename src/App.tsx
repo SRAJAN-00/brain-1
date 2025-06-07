@@ -1,11 +1,18 @@
 import { DashBoard } from "./components/DashBoard";
-
+import { SignIn } from "./components/SignIn";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { SignUp } from "./components/SignUp";
 
 function App() {
   return (
-   <>
-   <DashBoard/>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/signin" replace />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/dashboard" element={<DashBoard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

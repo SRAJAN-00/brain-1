@@ -6,6 +6,7 @@ interface ButtonProps {
   startIcon?: ReactElement;
   onClick?: () => void;
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 //prettier-ignore
 

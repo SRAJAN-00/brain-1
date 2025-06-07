@@ -60,7 +60,7 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
             filter: "blur(10px)",
           }}
           transition={{ duration: 0.2, ease: easeInOut }}
-          className="h-screen w-full flex justify-center items-center fixed top-0 left-0 z-50 backdrop-blur-sm bg-black bg-opacity-50 p-4"
+          className="h-screen w-full flex justify-center items-center fixed top-0 left-0 z-50   bg-opacity-50 p-4"
         >
           <div className="w-full max-w-[600px] mx-auto">
             <div className="bg-white shadow-lg rounded-xl w-full h-auto max-h-[90vh] overflow-y-auto border p-6">

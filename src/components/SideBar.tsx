@@ -1,3 +1,4 @@
+import All from "../icons/All";
 import { TwitterIcon } from "../icons/TwitterIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
 import { SideBarItems } from "./SideBarItems";
@@ -19,13 +20,15 @@ export function SideBar({ filter, setFilter, isOpen, onClose }: filterProps) {
       >
         {/* Sidebar content */}
         <div>
+          
           <div
+          
             onClick={() => {
               setFilter("all");
               onClose(); // Close sidebar after selecting filter
             }}
           >
-            <SideBarItems text="All" active={filter === "all"} />
+            <SideBarItems text="All" active={filter === "all"}icon={<All/>} />
           </div>
           <div
             onClick={() => {

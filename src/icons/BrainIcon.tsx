@@ -1,30 +1,37 @@
 export function BrainIcon() {
   return (
     <svg
+      width="50"
+      height="50"
+      viewBox="0 0 230 240"
       xmlns="http://www.w3.org/2000/svg"
-      width="40"
-      height="40"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      className="lucide lucide-brain-circuit-icon lucide-brain-circuit"
+      aria-labelledby="brainIconTitle"
+      role="img"
     >
-      <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
-      <path d="M9 13a4.5 4.5 0 0 0 3-4" />
-      <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
-      <path d="M3.477 10.896a4 4 0 0 1 .585-.396" />
-      <path d="M6 18a4 4 0 0 1-1.967-.516" />
-      <path d="M12 13h4" />
-      <path d="M12 18h6a2 2 0 0 1 2 2v1" />
-      <path d="M12 8h8" />
-      <path d="M16 8V5a2 2 0 0 1 2-2" />
-      <circle cx="16" cy="13" r=".5" />
-      <circle cx="18" cy="3" r=".5" />
-      <circle cx="20" cy="21" r=".5" />
-      <circle cx="20" cy="8" r=".5" />
+      <title id="brainIconTitle">Brain Icon</title>
+      <defs>
+        {/* Purple gradient for the droplet */}
+        <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#D946EF" />
+          <stop offset="100%" stopColor="#7C3AED" />
+        </linearGradient>
+      </defs>
+
+      {/* Droplet shape */}
+      <path
+        d="M120 12 C 90 66, 48 126, 48 168 C 48 210, 80 228, 120 228 C 160 228, 192 210, 192 168 C 192 126, 150 66, 120 12 Z"
+        fill="url(#purpleGrad)"
+      />
+
+      {/* White “post/document” inside droplet */}
+      <rect x="92" y="104" width="56" height="70" rx="6" ry="6" fill="#FFFFFF" />
+
+      {/* Purple lines in the document */}
+      <line x1="104" y1="118" x2="148" y2="118" stroke="#7C3AED" strokeWidth="6" strokeLinecap="round" />
+      <line x1="104" y1="138" x2="148" y2="138" stroke="#7C3AED" strokeWidth="6" strokeLinecap="round" />
+      <line x1="104" y1="158" x2="132" y2="158" stroke="#7C3AED" strokeWidth="6" strokeLinecap="round" />
+
+    
     </svg>
   );
 }
