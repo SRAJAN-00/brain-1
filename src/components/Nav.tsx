@@ -29,18 +29,9 @@ export default function Nav({
 
       {/* Search box */}
       <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2 w-10 sm:w-full sm:max-w-md sm:px-4">
-        {/* Input field for larger screens */}
-        <input
-          type="text"
-          placeholder="Search by title..."
-          className="bg-transparent outline-none text-gray-700 w-full text-sm sm:text-base hidden sm:block" // Hidden on small screens
-          onChange={(e) => setSearch(e.target.value)}
-          value={search}
-        />
-        {/* Search icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 text-gray-500 block " // Visible only on small screens
+          className="h-5 w-5 text-gray-500 block" // Always visible
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -52,6 +43,14 @@ export default function Nav({
             d="M10 18a8 8 0 100-16 8 8 0 000 16zm6-2l4 4"
           />
         </svg>
+        {/* Input field */}
+        <input
+          type="text"
+          placeholder="Search by title..."
+          className="bg-transparent outline-none text-gray-700 w-full text-sm sm:text-base" // Removed placeholder-shown:hidden
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+        />
       </div>
     </nav>
   );
