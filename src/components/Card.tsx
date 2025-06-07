@@ -31,13 +31,12 @@ export function Card({ title, link, type, onDelete }: CardProps) {
             filter: "blur(10px)",
           }}
           transition={{ duration: 0.5, ease: easeInOut }}
-          className="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-lg w-full max-w-xs sm:max-w-sm lg:max-w-sm xl:max-w-sm min-h-64 sm:min-h-72 lg:min-h-[380] p-4 sm:p-5 lg:p-6 border mt-4"
+          className="bg-white dark:bg-neutral-900 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-lg w-full max-w-xs sm:max-w-sm lg:max-w-sm xl:max-w-sm min-h-64 sm:min-h-72 lg:min-h-[380] p-4 sm:p-5 lg:p-6 border 
+          border-white/10 mt-4"
         >
           <div className="flex justify-between items-center text-md">
-             <div className="font-bold text-2xl  ml-2 ">{title}</div>
-            <div className="text-gray-500 pl-4">
-             
-            </div>
+            <div className="font-bold text-2xl  dark:text-purple-400 ml-2 ">{title}</div>
+            <div className="text-gray-500 pl-4"></div>
 
             <div className="flex">
               <div className="pr-3">
@@ -52,7 +51,7 @@ export function Card({ title, link, type, onDelete }: CardProps) {
               </div>
             </div>
           </div>
-         
+
           <div className="mt-4">
             {type === "youtube" && (
               <iframe

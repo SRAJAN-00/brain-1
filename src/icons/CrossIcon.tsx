@@ -10,7 +10,7 @@ export function CrossIcon() {
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      className="lucide lucide-x-icon lucide-x"
+      className="lucide lucide-x-icon lucide-x dark:text-neutral-100"
     >
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />

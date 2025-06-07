@@ -10,7 +10,7 @@ export function ShareIcon() {
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      className="lucide lucide-share2-icon lucide-share-2"
+      className="lucide lucide-share2-icon lucide-share-2 dark:text-neutral-300"
     >
       <circle cx="18" cy="5" r="3" />
       <circle cx="6" cy="12" r="3" />

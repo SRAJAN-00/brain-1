@@ -11,10 +11,11 @@ interface ButtonProps {
 //prettier-ignore
 
 const variantClasses = {
-  "primary": "bg-purple-600 text-white transition-all duration-300 hover:bg-pruple-700  font-bold hover:shadow-lg ",
-  "secondary": "bg-white" ,
+  "primary": "bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 text-white transition-all duration-300 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 font-bold hover:shadow-lg",
+  "secondary": "bg-white dark:bg-neutral-800 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600",
 };
-const defaultStyle = " py-2 px-5 border rounded-lg flex items-center gap-2 ";
+const defaultStyle = "py-2 px-5 rounded-lg flex items-center gap-2";
+
 export function Button({
   variant,
   text,
@@ -24,12 +25,11 @@ export function Button({
 }: ButtonProps) {
   return (
     <motion.button
-    whileHover={{scale:0.95}
-  }
-  transition={{duration:0.09}}
+      whileHover={{ scale: 0.95 }}
+      transition={{ duration: 0.09 }}
       className={
         variantClasses[variant] +
-        "" +
+        " " +
         defaultStyle +
         `${fullWidth ? " w-full flex justify-center items-center" : ""}`
       }

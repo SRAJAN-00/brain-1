@@ -15,7 +15,7 @@ export function SideBar({ filter, setFilter, isOpen, onClose }: filterProps) {
     <>
       {/* Sidebar */}
       <div
-        className={`h-screen w-72 bg-white shadow-md fixed z-40 transform transition-transform duration-300 top-[60px]
+        className={`h-screen w-72 dark:bg-black border-r border-white/10 bg-white shadow-md fixed z-40 transform transition-transform duration-300 top-[60px] pt-5
         ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
         {/* Sidebar content */}

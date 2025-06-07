@@ -44,7 +44,7 @@ export function DashBoard() {
       <Toaster />
 
       {/* Main content - responsive margins */}
-      <div className="flex-1 min-h-screen bg-neutral-10 justify-center ml-0 md:ml-72 px-4 md:px-0">
+      <div className="flex-1 min-h-screen bg-neutral-100 dark:bg-black justify-center ml-0 md:ml-72 px-4 md:px-0">
         {/* Mobile Header - Brain App title */}
 
         {/* Header buttons - centered on mobile, right-aligned on desktop */}
