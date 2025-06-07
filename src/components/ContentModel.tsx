@@ -66,7 +66,8 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
             <div className="bg-white shadow-lg rounded-xl w-full h-auto max-h-[90vh] overflow-y-auto border p-6">
               {/* Header with close button */}
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl text-purple-700 font-semibold text-gray-800">
+                <div></div> {/* Empty div for spacing */}
+                <h2 className="text-2xl pl-8 text-purple-700 font-semibold text-gray-800">
                   Add Content
                 </h2>
                 <button
@@ -80,17 +81,15 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
               {/* Form content */}
               <div className="space-y-6">
                 {/* Input fields */}
-                <div className="justify-center flex flex-col sm:flex-row gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-full max-w-md">
+                    <label className="block text-sm font-medium text-gray-700 mb-2 text-start">
                       Title
                     </label>
-                    <div>
-                      <Input reference={titleRef} placeholder="Enter title" />
-                    </div>
+                    <Input reference={titleRef} placeholder="Enter title" />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <div className="w-full max-w-md">
+                    <label className="block text-sm font-medium text-gray-700  text-start">
                       Link
                     </label>
                     <Input reference={linkRef} placeholder="Enter link" />
@@ -98,11 +97,11 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
                 </div>
 
                 {/* Content type buttons */}
-                <div>
-                  <label className="block text-sm font-medium flex justify-center text-gray-700 mb-3">
+                <div className="text-center">
+                  <label className="block text-xl font-medium mb-5 text-purple-500 ">
                     Content Type
                   </label>
-                  <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex justify-center gap-3">
                     <Button
                       variant={
                         type === ContentType.Youtube ? "primary" : "secondary"
@@ -119,15 +118,14 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
                     />
                   </div>
                 </div>
-                <div className="flex justify-center mt-6">
-                  {/* Submit button */}
-                  <div className="pt-4">
-                    <Button
-                      onClick={addContent}
-                      variant="primary"
-                      text="Add to Brain"
-                    />
-                  </div>
+
+                {/* Submit button */}
+                <div className="flex justify-center pt-2">
+                  <Button
+                    onClick={addContent}
+                    variant="primary"
+                    text="Add to Brain"
+                  />
                 </div>
               </div>
             </div>

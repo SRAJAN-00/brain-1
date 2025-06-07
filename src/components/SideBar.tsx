@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { BrainIcon } from "../icons/BrainIcon";
 import { TwitterIcon } from "../icons/TwitterIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
 import { SideBarItems } from "./SideBarItems";
@@ -7,51 +5,46 @@ import { SideBarItems } from "./SideBarItems";
 interface filterProps {
   filter: "all" | "youtube" | "twitter";
   setFilter: (filter: "all" | "youtube" | "twitter") => void;
+  isOpen: boolean; // Sidebar visibility state passed from parent
+  onClose: () => void; // Function to close the sidebar
 }
 
-export function SideBar({ filter, setFilter }: filterProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
+export function SideBar({ filter, setFilter, isOpen, onClose }: filterProps) {
   return (
     <>
-      {/* Mobile menu button */}
-      <button
-        className={`md:hidden fixed p-3 top-8 left-2 z-50 p-2  
-        ${isOpen ? "left-[242px] mt-14 shadow-none" : ""}`}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        ☰
-      </button>
-
       {/* Sidebar */}
       <div
-        className={`
-        h-screen w-72 bg-white shadow-md border-r-2 border-gray-200 
-        fixed z-40 transform transition-transform duration-300
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        md:translate-x-0
-      `}
+        className={`h-screen w-72 bg-white shadow-md fixed z-40 transform transition-transform duration-300 top-[60px]
+        ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
-        <div className={`text-3xl pl-4 pb-5 flex items-center transition-all duration-300 ${
-          isOpen ? "pt-16 text-[26px]" : "pt-4"
-        } md:pt-4`}>
-          <div className="pr-3 text-purple-500">
-            <BrainIcon />
-          </div>
-          <div className="text-purple-500 font-bold pt-3">Second Brain</div>
-        </div>
+        {/* Sidebar content */}
         <div>
-          <div onClick={() => setFilter("all")}>
+          <div
+            onClick={() => {
+              setFilter("all");
+              onClose(); // Close sidebar after selecting filter
+            }}
+          >
             <SideBarItems text="All" active={filter === "all"} />
           </div>
-          <div onClick={() => setFilter("twitter")}>
+          <div
+            onClick={() => {
+              setFilter("twitter");
+              onClose(); // Close sidebar after selecting filter
+            }}
+          >
             <SideBarItems
               text="Twitter"
               icon={<TwitterIcon />}
               active={filter === "twitter"}
             />
           </div>
-          <div onClick={() => setFilter("youtube")}>
+          <div
+            onClick={() => {
+              setFilter("youtube");
+              onClose(); // Close sidebar after selecting filter
+            }}
+          >
             <SideBarItems
               text="Youtube"
               icon={<YoutubeIcon />}
@@ -61,11 +54,11 @@ export function SideBar({ filter, setFilter }: filterProps) {
         </div>
       </div>
 
-      {/* Overlay for mobile */}
+      {/* Overlay */}
       {isOpen && (
         <div
-          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
-          onClick={() => setIsOpen(false)}
+          className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30 top-[60px]"
+          onClick={onClose} // Close sidebar when clicking outside
         />
       )}
     </>
