@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
 import { cn } from "../../lib/utils";
+import { Button } from "../Button";
 
 import { Spotlight } from "./spotlight";
+import { motion } from "motion/react";
 
 export default function SpotlightPreview() {
   return (
@@ -17,16 +20,30 @@ export default function SpotlightPreview() {
         fill="white"
       />
       <div className="relative z-10 mx-auto w-full max-w-7xl p-4 pt-20 md:pt-0">
-        <h1 className="bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text text-center text-4xl font-bold text-transparent md:text-7xl">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-opacity-50 bg-gradient-to-b from-neutral-50 to-neutral-400 bg-clip-text text-center text-4xl font-bold text-transparent md:text-7xl">
           Embed.Organize <br /> Share.All in One Place
-        </h1>
-        <p className="mx-auto mt-4 max-w-lg text-center text-base font-normal text-neutral-300">
+        </motion.h1>
+        <motion.p
+        initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        className="mx-auto mt-4 max-w-lg text-center text-base font-normal text-neutral-300">
           DropPost lets you embed Youtube videos, Twitter posts, and more
           beautifully and easily.
-        </p>
-        <button className="rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 px-6 py-3 text-white font-medium hover:from-purple-700 hover:to-blue-700 transition-all">
-          Get Started
-        </button>
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mt-8 flex items-center justify-center gap-4 pt-5"
+        >
+          <Link to="/signup">
+            <Button variant="primary" text="Get Started" />
+          </Link>
+        </motion.div>
       </div>
     </div>
   );

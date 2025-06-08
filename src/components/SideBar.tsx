@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import All from "../icons/All";
 import { TwitterIcon } from "../icons/TwitterIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
@@ -11,12 +12,13 @@ interface filterProps {
 }
 
 export function SideBar({ filter, setFilter, isOpen, onClose }: filterProps) {
- 
-
   return (
     <>
       {/* Sidebar */}
-      <div
+      <motion.div
+        initial={false}
+        animate={isOpen ? "open" : "closed"}
+        // Slide in when open
         className={`h-screen w-72 bg-white dark:bg-black shadow-md fixed z-40 transform transition-transform duration-300 top-[60px]
         ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
@@ -56,9 +58,8 @@ export function SideBar({ filter, setFilter, isOpen, onClose }: filterProps) {
           </div>
 
           {/* Dark Mode Toggle - Visible only on small screens */}
-          
         </div>
-      </div>
+      </motion.div>
 
       {/* Overlay */}
       {isOpen && (
