@@ -11,24 +11,24 @@ interface filterProps {
 }
 
 export function SideBar({ filter, setFilter, isOpen, onClose }: filterProps) {
+ 
+
   return (
     <>
       {/* Sidebar */}
       <div
-        className={`h-screen w-72 dark:bg-black border-r border-white/10 bg-white shadow-md fixed z-40 transform transition-transform duration-300 top-[60px] pt-5
+        className={`h-screen w-72 bg-white dark:bg-black shadow-md fixed z-40 transform transition-transform duration-300 top-[60px]
         ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
         {/* Sidebar content */}
-        <div>
-          
+        <div className="text-gray-700 dark:text-gray-300">
           <div
-          
             onClick={() => {
               setFilter("all");
               onClose(); // Close sidebar after selecting filter
             }}
           >
-            <SideBarItems text="All" active={filter === "all"}icon={<All/>} />
+            <SideBarItems text="All" active={filter === "all"} icon={<All />} />
           </div>
           <div
             onClick={() => {
@@ -54,6 +54,9 @@ export function SideBar({ filter, setFilter, isOpen, onClose }: filterProps) {
               active={filter === "youtube"}
             />
           </div>
+
+          {/* Dark Mode Toggle - Visible only on small screens */}
+          
         </div>
       </div>
 
