@@ -3,7 +3,7 @@ export function BrainIcon() {
     <svg
       width="50"
       height="50"
-      viewBox="0 0 230 240"
+      viewBox="0 0 260 240"
       xmlns="http://www.w3.org/2000/svg"
       aria-labelledby="brainIconTitle"
       role="img"
