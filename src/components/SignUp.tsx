@@ -13,11 +13,22 @@ export function SignUp() {
   async function signup() {
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
-    await axios.post(BACKEND_URL + "/api/v1/signup", {
-      username,
-      password,
-    });
-    navigate("/signin");
+    console.log(`[signup] attempt - username=${username} time=${new Date().toISOString()}`);
+    try {
+      const resp = await axios.post(BACKEND_URL + "/api/v1/signup", {
+        username,
+        password,
+      });
+      console.log(`[signup] success - username=${username} status=${resp.status}`);
+      navigate("/signin");
+    } catch (err: any) {
+      // Don't log passwords. Log a helpful error and server message when available.
+      console.error(`[signup] error - username=${username} message=${err?.message || err}`);
+      if (err.response?.data) {
+        console.error("[signup] server response:", err.response.data);
+      }
+      // Re-throw or optionally show UI feedback. For now, keep it simple.
+    }
   }
 
   return (

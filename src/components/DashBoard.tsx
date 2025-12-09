@@ -72,6 +72,7 @@ export function DashBoard() {
                 link={item.link}
                 type={item.type as "youtube" | "twitter"}
                 onDelete={() => deleteContent(String(item._id))}
+                _id={String(item._id)}
               />
             ))}
           </div>

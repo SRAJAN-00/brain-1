@@ -12,11 +12,11 @@ export function SideBarItems({
 }) {
   return (
     <motion.div
-      whileHover={{ scale: 0.95, transition: { duration: 0.10 } }}
+      whileHover={{ scale: 0.98, transition: { duration: 0.02 } }}
       whileTap={{ scale: 1, transition: { duration: 0.3 } }}
       
       className={`flex gap-5 pl-2 mt-2 items-center p-4 text-black  dark:text-white hover:  rounded-lg  cursor-pointer  transition-all duration-300 ease-in-out focus:outline-none   ${
-        active ? "dark:text-neutral-100 text-neutral-800" :  "dark:text-neutral-400 text-neutral-500 hover:none"
+        active ? "dark:text-neutral-100 text-neutral-800  b b-neutral-100"  :  "dark:text-neutral-400 text-neutral-500 hover:none"
       }`}
     >
       <div className="pl-5 ">{icon}</div>

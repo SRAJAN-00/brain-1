@@ -19,7 +19,7 @@ export function SideBar({ filter, setFilter, isOpen, onClose }: filterProps) {
         initial={false}
         animate={isOpen ? "open" : "closed"}
         // Slide in when open
-        className={`h-screen w-72 bg-white dark:bg-black shadow-md fixed z-40 transform transition-transform duration-300 top-[60px]
+        className={`h-screen w-72 bg-white dark:bg-black border-r  dark:border-r-neutral-800 shadow-md fixed z-40 transform transition-transform duration-300 top-[60px]
         ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
         {/* Sidebar content */}

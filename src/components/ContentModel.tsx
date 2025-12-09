@@ -44,10 +44,12 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
     <div>
       {open && (
         <motion.div
+          layout
+          layoutId="open-Model"
           initial={{
             opacity: 0,
-            scale: 0.98,
-            filter: "blur(10px)",
+            scale: 0.95,
+            filter: "blur(4px)",
           }}
           animate={{
             opacity: 1,
@@ -56,10 +58,14 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
           }}
           exit={{
             opacity: 0,
-            scale: 0.98,
-            filter: "blur(10px)",
+            scale: 0.95,
+            filter: "blur(4px)",
           }}
-          transition={{ duration: 0.2, ease: easeInOut }}
+          transition={{
+            duration: 0.2,
+            ease: easeInOut,
+            layout: { duration: 0.3 },
+          }}
           className="h-screen w-full flex justify-center items-center fixed top-0 left-0 z-50 bg-black bg-opacity-50 backdrop-blur-sm p-4"
         >
           <div className="w-full max-w-[600px] mx-auto">
@@ -83,13 +89,13 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
                 {/* Input fields */}
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-full max-w-md">
-                    <label className="block text-sm font-medium dark:text-neutral-100 text-gray-700 mb-2 text-start">
+                    <label className="block text-md font-medium dark:text-neutral-100 text-gray-700 mb-2 text-start">
                       Title
                     </label>
                     <Input reference={titleRef} placeholder="Enter title" />
                   </div>
                   <div className="w-full max-w-md">
-                    <label className="block text-sm font-medium dark:text-neutral-100 text-gray-700 text-start">
+                    <label className="block text-md font-medium dark:text-neutral-100 text-gray-700 text-start">
                       Link
                     </label>
                     <Input reference={linkRef} placeholder="Enter link" />
