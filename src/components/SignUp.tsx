@@ -13,17 +13,23 @@ export function SignUp() {
   async function signup() {
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
-    console.log(`[signup] attempt - username=${username} time=${new Date().toISOString()}`);
+    console.log(
+      `[signup] attempt - username=${username} time=${new Date().toISOString()}`
+    );
     try {
       const resp = await axios.post(BACKEND_URL + "/api/v1/signup", {
         username,
         password,
       });
-      console.log(`[signup] success - username=${username} status=${resp.status}`);
+      console.log(
+        `[signup] success - username=${username} status=${resp.status}`
+      );
       navigate("/signin");
     } catch (err: any) {
       // Don't log passwords. Log a helpful error and server message when available.
-      console.error(`[signup] error - username=${username} message=${err?.message || err}`);
+      console.error(
+        `[signup] error - username=${username} message=${err?.message || err}`
+      );
       if (err.response?.data) {
         console.error("[signup] server response:", err.response.data);
       }
@@ -33,7 +39,7 @@ export function SignUp() {
 
   return (
     <div className="bg-gray-200 flex justify-center min-h-screen items-center p-4">
-      <div className="bg-white shadow-lg rounded-lg w-full max-w-md mx-auto p-6 border">
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-md sm:max-w-lg md:max-w-xl lg:w-[500px] mx-auto p-6 border">
         <h2 className="text-center text-3xl md:text-4xl text-purple-700 font-bold mt-4 mb-8">
           Create Account
         </h2>

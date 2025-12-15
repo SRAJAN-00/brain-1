@@ -19,16 +19,19 @@ interface ContentModelProps {
 export function ContentModel({ open, onClose }: ContentModelProps) {
   const titleRef = useRef<HTMLInputElement>(null);
   const linkRef = useRef<HTMLInputElement>(null);
+  const noteRef = useRef<HTMLTextAreaElement>(null);
   const [type, setType] = useState(ContentType.Youtube);
 
   async function addContent() {
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
+    const notes = noteRef.current?.value;
     await axios.post(
       `${BACKEND_URL}/api/v1/content`,
       {
         title,
         link,
+        notes,
         type,
       },
       {
@@ -73,7 +76,7 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
               {/* Header with close button */}
               <div className="flex justify-between items-center mb-6">
                 <div></div> {/* Empty div for spacing */}
-                <h2 className="text-2xl pl-8  text-purple-500 font-semibold text-gray-800">
+                <h2 className="text-2xl pl-8 font-semibold text-purple-500 dark:text-purple-400">
                   Add Content
                 </h2>
                 <button
@@ -99,6 +102,17 @@ export function ContentModel({ open, onClose }: ContentModelProps) {
                       Link
                     </label>
                     <Input reference={linkRef} placeholder="Enter link" />
+                  </div>
+                  <div className="w-full max-w-md">
+                    <label className="block text-md font-medium dark:text-neutral-100 text-gray-700 text-start">
+                      Note
+                    </label>
+                    <textarea
+                      ref={noteRef}
+                      placeholder="Add notes (optional)"
+                      rows={3}
+                      className="w-full px-4 py-2 border rounded-md dark:bg-neutral-800 dark:border-neutral-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
                   </div>
                 </div>
 

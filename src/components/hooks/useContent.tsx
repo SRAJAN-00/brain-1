@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 export function useContent() {
   interface Content {
@@ -10,14 +10,16 @@ export function useContent() {
     title: string;
     type: string;
     contentId: string;
+    notes?: string;
   }
 
   const [contents, setContents] = useState<Content[]>([]);
 
   function refresh() {
-    axios.get(`${BACKEND_URL}/api/v1/content`, {
+    axios
+      .get(`${BACKEND_URL}/api/v1/content`, {
         headers: {
-          "Authorization": localStorage.getItem("token"),
+          Authorization: localStorage.getItem("token"),
         },
       })
       .then((response) => {
@@ -31,43 +33,43 @@ export function useContent() {
   const deleteContent = async (contentId: string) => {
     try {
       console.log("Deleting content with ID:", contentId);
-    
+
       await axios.delete(`${BACKEND_URL}/api/v1/content`, {
         headers: {
-          "Authorization": localStorage.getItem("token"),
+          Authorization: localStorage.getItem("token"),
           "Content-Type": "application/json",
         },
         data: { contentId },
       });
-    
+
       setContents((prevContents) => {
         const updatedContents = prevContents.filter(
           (content) => String(content.contentId) !== String(contentId)
         );
         return updatedContents;
       });
-      
+
       // Show success toast
-      toast.success('Content deleted successfully!', {
+      toast.success("Content deleted successfully!", {
         duration: 3000,
-        position: 'top-center',
+        position: "top-center",
         style: {
-          background: '#10B981',
-          color: 'white',
+          background: "#10B981",
+          color: "white",
         },
       });
-      
+
       refresh();
     } catch (error) {
       console.error("Delete error:", error);
-      
+
       // Show error toast
-      toast.error('Failed to delete content', {
+      toast.error("Failed to delete content", {
         duration: 3000,
-        position: 'top-right',
+        position: "top-right",
         style: {
-          background: '#EF4444',
-          color: 'white',
+          background: "#EF4444",
+          color: "white",
         },
       });
     }

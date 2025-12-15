@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ShareIcon } from "../icons/ShareIcon";
 import { ThrashIcon } from "../icons/ThrashIcon";
 import { AnimatePresence, easeInOut, motion } from "motion/react";
@@ -12,14 +12,32 @@ interface CardProps {
   type: "twitter" | "youtube";
   onDelete: () => void;
   _id: string;
+  notes?: string; // ✅ Add this
 }
 
-export function Card({ title, link, type, onDelete, _id }: CardProps) {
+export function Card({
+  title,
+  link,
+  type,
+  onDelete,
+  _id,
+  notes: initialNotes = "",
+}: CardProps) {
   const [summary, setSummary] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [confirm,setConfirm]=useState(false)
+  const [confirm, setConfirm] = useState(false);
+  const [notes, setNotes] = useState(initialNotes);
+  const [isEditingNotes, setIsEditingNotes] = useState(false);
+  const notesTextareaRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+    if (isEditingNotes) {
+      const textarea = notesTextareaRef.current;
+      textarea?.focus();
+      textarea?.setSelectionRange(textarea.value.length, textarea.value.length);
+    }
+  }, [isEditingNotes]);
   // Animation variants for staggered summary lines
   const summaryLines = summary
     ? summary
@@ -30,24 +48,24 @@ export function Card({ title, link, type, onDelete, _id }: CardProps) {
 
   const parent = {
     hidden: { opacity: 1 },
-    visible: { 
-      opacity: 1, 
-      transition: { 
-        staggerChildren: 0.08, 
-        delayChildren: 0.05 
-      } 
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.05,
+      },
     },
   };
 
   const child = {
     hidden: { opacity: 0, y: 8 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 0.28, 
-        ease: "easeOut" 
-      } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.28,
+        ease: "easeOut",
+      },
     },
   };
 
@@ -80,7 +98,9 @@ export function Card({ title, link, type, onDelete, _id }: CardProps) {
       } else if (response.data.success && response.data.summary) {
         setSummary(response.data.summary);
       } else {
-        setError(response.data.error || response.data.message || "No summary received");
+        setError(
+          response.data.error || response.data.message || "No summary received"
+        );
       }
     } catch (err: any) {
       console.error("Summarize error:", err);
@@ -91,6 +111,22 @@ export function Card({ title, link, type, onDelete, _id }: CardProps) {
   }
 
   console.log("title", title);
+
+  // Add save notes function
+  async function handleSaveNotes() {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        `${BACKEND_URL}/api/v1/content/${_id}`,
+        { notes },
+        { headers: { Authorization: token || "" } }
+      );
+      setIsEditingNotes(false);
+    } catch (err) {
+      console.error("Failed to save notes:", err);
+    }
+  }
+
   return (
     <div>
       <AnimatePresence>
@@ -111,7 +147,7 @@ export function Card({ title, link, type, onDelete, _id }: CardProps) {
             filter: "blur(10px)",
           }}
           transition={{ duration: 0.5, ease: easeInOut }}
-          className="bg-white dark:bg-neutral-900 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-lg w-full max-w-xs sm:max-w-sm lg:max-w-sm xl:max-w-sm min-h-[380px] sm:min-h-72 lg:min-h-[380]  sm:p-5 lg:p-6 border 
+          className="bg-white dark:bg-neutral-900 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-lg w-full max-w-[150px] sm:max-w-sm lg:max-w-sm xl:max-w-sm  sm:min-h-72  sm:p-5 lg:p-6 border 
           border-white/10 mt-4"
         >
           <div className="flex justify-between items-center text-md">
@@ -127,23 +163,26 @@ export function Card({ title, link, type, onDelete, _id }: CardProps) {
                 </a>
               </div>
               <div>
-                <button onClick={()=> setConfirm(true)} className="text-red-500">
+                <button
+                  onClick={() => setConfirm(true)}
+                  className="text-red-500"
+                >
                   <ThrashIcon />
                 </button>
-                {confirm&&<ConfirmModel
-                open={confirm}
-                title="Delete Content"
-                message="Are you sure you want to delete this"
-                onConfirm={()=>{
-                  onDelete()
-                  setConfirm(false)
-                }}
-                onCancel={()=>{
-
-                  setConfirm(false)
-                }}
-
-                />}
+                {confirm && (
+                  <ConfirmModel
+                    open={confirm}
+                    title="Delete Content"
+                    message="Are you sure you want to delete this"
+                    onConfirm={() => {
+                      onDelete();
+                      setConfirm(false);
+                    }}
+                    onCancel={() => {
+                      setConfirm(false);
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -152,8 +191,8 @@ export function Card({ title, link, type, onDelete, _id }: CardProps) {
             {type === "youtube" && (
               <iframe
                 className="w-full rounded-lg"
-                width="560"
-                height="220"
+                width="400"
+                height="150"
                 src={link
                   .replace("watch?v=", "embed/")
                   .replace("youtu.be/", "youtube.com/embed/")}
@@ -165,8 +204,8 @@ export function Card({ title, link, type, onDelete, _id }: CardProps) {
               ></iframe>
             )}
             {type === "twitter" && (
-              <div className="h-[220px] flex items-center justify-center bg-gray-50 dark:bg-neutral-800 rounded-lg">
-                <blockquote className="twitter-tweet rounded-lg w-full h-full">
+              <div className=" flex items-center justify-center bg-gray-50 dark:bg-neutral-800 rounded-lg">
+                <blockquote className="twitter-tweet rounded-lg w-full h-full overflow-hidden">
                   <a href={link.replace("x.com", "twitter.com")}></a>
                 </blockquote>
               </div>
@@ -217,6 +256,47 @@ export function Card({ title, link, type, onDelete, _id }: CardProps) {
               )}
             </div>
           )}
+
+          {/* Notes Section - Add this before closing div */}
+          <div className="mt-4 border-t border-gray-200 dark:border-neutral-700 pt-4">
+            <div className="flex justify-between items-center mb-2">
+              <h4 className="font-semibold text-sm text-gray-700 dark:text-gray-300">
+                📝 Notes
+              </h4>
+              <button
+                onClick={() => setIsEditingNotes(!isEditingNotes)}
+                className="text-xs text-purple-600 dark:text-purple-400 hover:underline"
+              >
+                {isEditingNotes ? "Cancel" : "Edit"}
+              </button>
+            </div>
+
+            {isEditingNotes ? (
+              <div>
+                <textarea
+                  value={notes}
+                  ref={notesTextareaRef}
+                  onChange={(e) => setNotes(e.target.value)}
+                  placeholder="Add your notes here..."
+                  className="w-full p-2 border border-gray-300 dark:border-neutral-600 rounded-lg 
+                           bg-white dark:bg-neutral-800 text-gray-800 dark:text-gray-200
+                           focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none max-h-[150px] overflow-y-auto"
+                  rows={3}
+                />
+                <button
+                  onClick={handleSaveNotes}
+                  className="mt-2 px-4 py-1 bg-purple-600 hover:bg-purple-700 text-white 
+                           rounded-lg text-sm transition-colors"
+                >
+                  Save Notes
+                </button>
+              </div>
+            ) : (
+              <p className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-wrap max-h-[100px] overflow-y-auto">
+                {notes || "No notes yet. Click Edit to add some!"}
+              </p>
+            )}
+          </div>
         </motion.div>
       </AnimatePresence>
     </div>

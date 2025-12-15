@@ -23,11 +23,13 @@ export function DashBoard() {
   const filteredContents = useMemo(() => {
     return contents
       .filter((item) => filter === "all" || item.type === filter)
-      .filter((item) => item.title.toLowerCase().includes(search.toLowerCase()));
+      .filter((item) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+      );
   }, [contents, filter, search]);
 
   return (
-    <div className="flex">
+    <div className="flex ">
       {/* Pass the toggle function to Nav */}
       <Nav
         search={search}
@@ -44,7 +46,7 @@ export function DashBoard() {
       <Toaster />
 
       {/* Main content - responsive margins */}
-      <div className="flex-1 min-h-screen bg-neutral-100 dark:bg-black justify-center ml-0 md:ml-72 px-4 md:px-0">
+      <div className="flex-1 min-h-screen bg-neutral-100 max-w-9xl dark:bg-black justify-center ml-0 md:ml-72 px-4 md:px-0">
         {/* Mobile Header - Brain App title */}
 
         {/* Header buttons - centered on mobile, right-aligned on desktop */}
@@ -64,7 +66,7 @@ export function DashBoard() {
 
         {/* Cards grid - centered on mobile with proper spacing */}
         <div className="flex justify-center px-4 sm:px-6 lg:px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-6 mt-2 w-full max-w-7xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-6 mt-2 w-full max-w-7xl">
             {filteredContents.map((item, index) => (
               <Card
                 key={item._id || index}
@@ -73,6 +75,7 @@ export function DashBoard() {
                 type={item.type as "youtube" | "twitter"}
                 onDelete={() => deleteContent(String(item._id))}
                 _id={String(item._id)}
+                notes={item.notes}
               />
             ))}
           </div>
@@ -89,6 +92,3 @@ export function DashBoard() {
 
 // In your Card.tsx file, update the container classes:
 <div className="bg-white rounded-lg shadow-md p-3 sm:p-4 hover:shadow-lg transition-shadow w-full max-w-xs sm:max-w-sm"></div>;
-
-
-
