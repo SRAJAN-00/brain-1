@@ -7,10 +7,12 @@ export default function Nav({
   search,
   setSearch,
   onMenuToggle,
+  children,
 }: {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   onMenuToggle: () => void;
+  children?: React.ReactNode;
 }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -74,8 +76,11 @@ export default function Nav({
           />
         </div>
 
+        {/* Render children (like buttons) before dark mode toggle */}
+        {children}
+
         {/* Dark Mode Toggle */}
-        <button onClick={toggleDarkMode} className="left-0">
+        <button onClick={toggleDarkMode} className="left-0 text-gray-500 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors">
           {isDarkMode ? <SunIcon /> : <MoonIcon />}
         </button>
       </div>

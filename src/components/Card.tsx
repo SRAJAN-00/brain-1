@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ShareIcon } from "../icons/ShareIcon";
 import { ThrashIcon } from "../icons/ThrashIcon";
 import { AnimatePresence, easeInOut, motion } from "motion/react";
+import { Tooltip } from "./ui/Tooltip";
 import axios from "axios";
 import { BACKEND_URL } from "./config";
 import ConfirmModel from "./ConfirmModel";
@@ -12,7 +13,7 @@ interface CardProps {
   type: "twitter" | "youtube";
   onDelete: () => void;
   _id: string;
-  notes?: string; // ✅ Add this
+  notes?: string;
 }
 
 export function Card({
@@ -38,7 +39,7 @@ export function Card({
       textarea?.setSelectionRange(textarea.value.length, textarea.value.length);
     }
   }, [isEditingNotes]);
-  // Animation variants for staggered summary lines
+
   const summaryLines = summary
     ? summary
         .split(/\n+/)
@@ -64,14 +65,12 @@ export function Card({
       y: 0,
       transition: {
         duration: 0.28,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };
 
-  // Function to summarize - FIXED!
   async function handleSummarize() {
-    console.log("summarize clicked", _id);
     setLoading(true);
     setError(null);
 
@@ -88,12 +87,7 @@ export function Card({
         }
       );
 
-      console.log("Full response:", response);
-      console.log("Response data:", response.data);
-
-      // Check if summary exists in response
       if (response.data.summary) {
-        console.log("Setting summary:", response.data.summary);
         setSummary(response.data.summary);
       } else if (response.data.success && response.data.summary) {
         setSummary(response.data.summary);
@@ -110,9 +104,6 @@ export function Card({
     setLoading(false);
   }
 
-  console.log("title", title);
-
-  // Add save notes function
   async function handleSaveNotes() {
     try {
       const token = localStorage.getItem("token");
@@ -147,8 +138,7 @@ export function Card({
             filter: "blur(10px)",
           }}
           transition={{ duration: 0.5, ease: easeInOut }}
-          className="bg-white dark:bg-neutral-900 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-lg w-full max-w-[150px] sm:max-w-sm lg:max-w-sm xl:max-w-sm  sm:min-h-72  sm:p-5 lg:p-6 border 
-          border-white/10 mt-4"
+          className="bg-white dark:bg-neutral-900 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_40px_rgb(0,0,0,0.16)] hover:-translate-y-1 transition-all rounded-lg w-full max-w-xs sm:max-w-sm lg:max-w-sm xl:max-w-sm min-h-64 sm:min-h-72 lg:min-h-[380px] p-4 sm:p-5 lg:p-6 border border-white/10 mt-4"
         >
           <div className="flex justify-between items-center text-md">
             <div className="font-bold text-2xl dark:text-purple-400 ml-2">
@@ -158,22 +148,26 @@ export function Card({
 
             <div className="flex">
               <div className="pr-3">
-                <a href={link} target="_blank" rel="noopener noreferrer">
-                  <ShareIcon />
-                </a>
+                <Tooltip content="Share Link">
+                  <a href={link} target="_blank" rel="noopener noreferrer">
+                    <ShareIcon />
+                  </a>
+                </Tooltip>
               </div>
               <div>
-                <button
-                  onClick={() => setConfirm(true)}
-                  className="text-red-500"
-                >
-                  <ThrashIcon />
-                </button>
+                <Tooltip content="Delete">
+                  <button
+                    onClick={() => setConfirm(true)}
+                    className="text-red-500"
+                  >
+                    <ThrashIcon />
+                  </button>
+                </Tooltip>
                 {confirm && (
                   <ConfirmModel
                     open={confirm}
                     title="Delete Content"
-                    message="Are you sure you want to delete this"
+                    message="Are you sure you want to delete this?"
                     onConfirm={() => {
                       onDelete();
                       setConfirm(false);
@@ -191,8 +185,8 @@ export function Card({
             {type === "youtube" && (
               <iframe
                 className="w-full rounded-lg"
-                width="400"
-                height="150"
+                width="100%"
+                height="200"
                 src={link
                   .replace("watch?v=", "embed/")
                   .replace("youtu.be/", "youtube.com/embed/")}
@@ -204,7 +198,7 @@ export function Card({
               ></iframe>
             )}
             {type === "twitter" && (
-              <div className=" flex items-center justify-center bg-gray-50 dark:bg-neutral-800 rounded-lg">
+              <div className="flex items-center justify-center bg-gray-50 dark:bg-neutral-800 rounded-lg">
                 <blockquote className="twitter-tweet rounded-lg w-full h-full overflow-hidden">
                   <a href={link.replace("x.com", "twitter.com")}></a>
                 </blockquote>
@@ -212,7 +206,6 @@ export function Card({
             )}
           </div>
 
-          {/* Summarize Button - Only for YouTube */}
           {type === "youtube" && (
             <div className="mt-4">
               <button
@@ -225,14 +218,12 @@ export function Card({
                 {loading ? "⏳ Summarizing..." : "🤖 Summarize with AI"}
               </button>
 
-              {/* Error Message */}
               {error && (
                 <div className="mt-2 text-red-500 text-sm">❌ {error}</div>
               )}
 
-              {/* Summary Display with Staggered Animation */}
               {summary && (
-                <div className="mt-3 p-3 bg-gray-100 dark:bg-neutral-800 rounded-lg overflow-scroll">
+                <div className="mt-3 p-3 bg-gray-100 dark:bg-neutral-800 rounded-lg overflow-scroll max-h-48">
                   <div className="font-semibold text-purple-600 dark:text-purple-400 mb-2">
                     📝 Summary:
                   </div>
@@ -257,7 +248,6 @@ export function Card({
             </div>
           )}
 
-          {/* Notes Section - Add this before closing div */}
           <div className="mt-4 border-t border-gray-200 dark:border-neutral-700 pt-4">
             <div className="flex justify-between items-center mb-2">
               <h4 className="font-semibold text-sm text-gray-700 dark:text-gray-300">
