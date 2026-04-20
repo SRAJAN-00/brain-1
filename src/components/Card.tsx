@@ -87,18 +87,21 @@ export function Card({
         }
       );
 
-      if (response.data.summary) {
-        setSummary(response.data.summary);
-      } else if (response.data.success && response.data.summary) {
-        setSummary(response.data.summary);
+      const receivedSummary = response.data?.summary;
+      if (typeof receivedSummary === "string" && receivedSummary.trim()) {
+        setSummary(receivedSummary);
       } else {
         setError(
           response.data.error || response.data.message || "No summary received"
         );
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Summarize error:", err);
-      setError(err.response?.data?.error || "Failed to summarize");
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.error || "Failed to summarize");
+      } else {
+        setError("Failed to summarize");
+      }
     }
 
     setLoading(false);

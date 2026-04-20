@@ -20,7 +20,7 @@ export function DashBoard() {
 
   useEffect(() => {
     refresh();
-  }, [modelopen]);
+  }, [modelopen, refresh]);
 
   const filteredContents = useMemo(() => {
     return contents

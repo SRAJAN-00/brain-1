@@ -25,12 +25,17 @@ export function SignUp() {
         `[signup] success - username=${username} status=${resp.status}`
       );
       navigate("/signin");
-    } catch (err: any) {
+    } catch (err: unknown) {
       // Don't log passwords. Log a helpful error and server message when available.
+      const message = axios.isAxiosError(err)
+        ? err.message
+        : err instanceof Error
+        ? err.message
+        : String(err);
       console.error(
-        `[signup] error - username=${username} message=${err?.message || err}`
+        `[signup] error - username=${username} message=${message}`
       );
-      if (err.response?.data) {
+      if (axios.isAxiosError(err) && err.response?.data) {
         console.error("[signup] server response:", err.response.data);
       }
       // Re-throw or optionally show UI feedback. For now, keep it simple.
